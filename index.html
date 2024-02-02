@@ -72,6 +72,9 @@
 			}
 
 			move() {
+				if (this.lparent == null || this.rparent == null) {
+					return
+				}
 				this.x = this.toX
 				this.y = this.toY
 				this.element.style.setProperty('--x', `${this.x}%`)
