@@ -73,7 +73,7 @@
 			}
 
 			move() {
-				if (!canMove && (this.lparent == null || this.rparent == null)) {
+				if (!this.canMove && (this.lparent == null || this.rparent == null)) {
 					return
 				}
 				this.x = this.toX
@@ -125,14 +125,14 @@
 		let c11 = new Cameleon(355, 460, 285, 755, 140, { cameleon: c14, left: false })
 		let c10 = new Cameleon(625, 460, 695, 755, 140, { cameleon: c13, left: true })
 		let c9 = new Cameleon(895, 460, 825, 755, 0, { cameleon: c13, left: false })
-		let c8 = new Cameleon(25, 50, 25, 350, 0, { cameleon: c12, left: true })
-		let c7 = new Cameleon(155, 50, 155, 350, 140, { cameleon: c12, left: false })
-		let c6 = new Cameleon(285, 70, 285, 350, 140, { cameleon: c11, left: true })
-		let c5 = new Cameleon(415, 70, 415, 350, 0, { cameleon: c11, left: false })
-		let c4 = new Cameleon(550, 40, 563, 345, 0, { cameleon: c10, left: true })
-		let c3 = new Cameleon(680, 40, 693, 345, 140, { cameleon: c10, left: false })
-		let c2 = new Cameleon(830, 50, 833, 345, 140, { cameleon: c9, left: true })
-		let c1 = new Cameleon(960, 50, 963, 345, 0, { cameleon: c9, left: false })
+		let c8 = new Cameleon(25, 50, 25, 350, 0, { cameleon: c12, left: true }, true)
+		let c7 = new Cameleon(155, 50, 155, 350, 140, { cameleon: c12, left: false }, true)
+		let c6 = new Cameleon(285, 70, 285, 350, 140, { cameleon: c11, left: true }, true)
+		let c5 = new Cameleon(415, 70, 415, 350, 0, { cameleon: c11, left: false }, true)
+		let c4 = new Cameleon(550, 40, 563, 345, 0, { cameleon: c10, left: true }, true)
+		let c3 = new Cameleon(680, 40, 693, 345, 140, { cameleon: c10, left: false }, true)
+		let c2 = new Cameleon(830, 50, 833, 345, 140, { cameleon: c9, left: true }, true)
+		let c1 = new Cameleon(960, 50, 963, 345, 0, { cameleon: c9, left: false }, true)
 	</script>
 </body>
 
