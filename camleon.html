@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Caméléons</title>
+	<style>
+		body {
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		#arbre {
+			height: 100vh;
+		}
+
+		#contener {
+			position: relative;
+			width: auto;
+			height: 100%;
+		}
+
+		.cameleon {
+			--x: 0px;
+			--y: 0px;
+			--color: 0deg; /* 0deg = red, 140deg = green, 240deg = blue */
+			position: absolute;
+			top: 0;
+			left: 0;
+			transform: translate(
+				var(--x),
+				var(--y)
+			);
+			filter: hue-rotate(var(--color));
+			transition: 1s ease;
+			height: 7vh;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="contener">
+		<img src="arbre.png" alt="arbre" id="arbre">
+	</div>
+	<script>
+		const contener = document.getElementById('contener')
+		class Cameleon {
+			constructor(x, y, toX, toY, color, child = null) {
+				this.x = x
+				this.y = y
+				this.color = color
+				this.toX = toX
+				this.toY = toY
+				this.lparent = null
+				this.rparent = null
+				this.child = child
+				this.element = document.createElement('img')
+				this.element.src = 'camaleonRouge.png'
+				this.element.classList.add('cameleon')
+				this.element.style.setProperty('--x', `${this.x}%`)
+				this.element.style.setProperty('--y', `${this.y}%`)
+				this.element.style.setProperty('--color', `${this.color}deg`)
+				this.element.addEventListener("click", () => {
+					this.move()
+				})
+				contener.appendChild(this.element)
+			}
+
+			move() {
+				this.x = this.toX
+				this.y = this.toY
+				this.element.style.setProperty('--x', `${this.x}%`)
+				this.element.style.setProperty('--y', `${this.y}%`)
+				if (this.child) {
+					setTimeout(() => {
+						this.child.cameleon.setParent(this, this.child.left)
+					}, 1500)
+				}
+			}
+
+			setColor(color) {
+				console.log("Set color", color)
+				this.color = color
+				this.element.style.setProperty('--color', `${this.color}deg`)
+			}
+
+			setParent(parent, left) {
+				if (left) {
+					this.lparent = parent
+				} else {
+					this.rparent = parent
+				}
+				if (this.rparent != null && this.lparent != null) {
+					this.calcNewColor(this.lparent.color, this.rparent.color)
+				}
+			}
+
+			calcNewColor(c1, c2, propagation = true) {
+				console.log("Calc new color", c1, c2)
+				if (c1 == c2) {
+					this.setColor(c1)
+				} else if (propagation){
+					this.lparent.calcNewColor(this.color, c2, false)
+					this.rparent.calcNewColor(c1, this.color, false)
+				}
+			}
+		}
+
+		const arbre = document.getElementById('arbre')
+		
+
+		let c15 = new Cameleon(490, 1150, 490, 1500, 140)
+		let c14 = new Cameleon(220, 870, 430, 1040, 0, { cameleon: c15, left: true })
+		let c13 = new Cameleon(760, 870, 555, 1040, 0, { cameleon: c15, left: false })
+		let c12 = new Cameleon(85, 460, 155, 755, 0, { cameleon: c14, left: true })
+		let c11 = new Cameleon(355, 460, 285, 755, 140, { cameleon: c14, left: false })
+		let c10 = new Cameleon(625, 460, 695, 755, 140, { cameleon: c13, left: true })
+		let c9 = new Cameleon(895, 460, 825, 755, 0, { cameleon: c13, left: false })
+		let c8 = new Cameleon(25, 50, 25, 350, 0, { cameleon: c12, left: true })
+		let c7 = new Cameleon(155, 50, 155, 350, 140, { cameleon: c12, left: false })
+		let c6 = new Cameleon(285, 70, 285, 350, 140, { cameleon: c11, left: true })
+		let c5 = new Cameleon(415, 70, 415, 350, 0, { cameleon: c11, left: false })
+		let c4 = new Cameleon(550, 40, 563, 345, 0, { cameleon: c10, left: true })
+		let c3 = new Cameleon(680, 40, 693, 345, 140, { cameleon: c10, left: false })
+		let c2 = new Cameleon(830, 50, 833, 345, 140, { cameleon: c9, left: true })
+		let c1 = new Cameleon(960, 50, 963, 345, 0, { cameleon: c9, left: false })
+	</script>
+</body>
+
+</html>
