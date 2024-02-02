@@ -50,7 +50,7 @@
 	<script>
 		const contener = document.getElementById('contener')
 		class Cameleon {
-			constructor(x, y, toX, toY, color, child = null) {
+			constructor(x, y, toX, toY, color, child = null, canMove = false) {
 				this.x = x
 				this.y = y
 				this.color = color
@@ -59,6 +59,7 @@
 				this.lparent = null
 				this.rparent = null
 				this.child = child
+				this.canMove = canMove
 				this.element = document.createElement('img')
 				this.element.src = 'camaleonRouge.png'
 				this.element.classList.add('cameleon')
@@ -72,7 +73,7 @@
 			}
 
 			move() {
-				if (this.lparent == null || this.rparent == null) {
+				if (!canMove && (this.lparent == null || this.rparent == null)) {
 					return
 				}
 				this.x = this.toX
