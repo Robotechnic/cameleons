@@ -25,17 +25,17 @@
 			height: 100%;
 		}
 
-		.cameleon, .bird {
+		.cameleon,
+		.bird {
 			--x: 0px;
 			--y: 0px;
-			--color: 0deg; /* 0deg = red, 140deg = green, 240deg = blue */
+			--color: 0deg;
+			/* 0deg = red, 140deg = green, 240deg = blue */
 			position: absolute;
 			top: 0;
 			left: 0;
-			transform: translate(
-				var(--x),
-				var(--y)
-			);
+			transform: translate(var(--x),
+					var(--y));
 			filter: hue-rotate(var(--color));
 			transition: 1s ease;
 			height: 7vh;
@@ -49,17 +49,17 @@
 	</div>
 	<script src="cameleon.js"></script>
 	<script>
-		const contener = document.getElementById('contener')		
+		const contener = document.getElementById('contener')
 		let c15 = new Cameleon(contener, 490, 1150, 490, 1500, 140)
-		let c14 = new Cameleon(contener, 220, 870, 430, 1040, 0, { cameleon: c15, left: true })
-		let c13 = new Cameleon(contener, 760, 870, 555, 1040, 0, { cameleon: c15, left: false })
-		let c12 = new Cameleon(contener, 85, 460, 155, 755, 0, { cameleon: c14, left: true })
-		let c11 = new Cameleon(contener, 355, 460, 285, 755, 140, { cameleon: c14, left: false })
-		let c10 = new Cameleon(contener, 625, 460, 695, 755, 140, { cameleon: c13, left: true })
+		let c14 = new Cameleon(contener, 220, 870, 430, 1040, 0, { cameleon: c15, left: true }, false, true)
+		let c13 = new Cameleon(contener, 760, 870, 555, 1040, 0, { cameleon: c15, left: false }, false, true)
+		let c12 = new Cameleon(contener, 85, 460, 155, 755, 0, { cameleon: c14, left: true }, false, false)
+		let c11 = new Cameleon(contener, 355, 460, 285, 755, 140, { cameleon: c14, left: false }, false, true)
+		let c10 = new Cameleon(contener, 625, 460, 695, 755, 140, { cameleon: c13, left: true }, false, true)
 		let c9 = new Cameleon(contener, 895, 460, 825, 755, 0, { cameleon: c13, left: false })
-		let c8 = new Cameleon(contener, 25, 50, 25, 350, 0, { cameleon: c12, left: true }, true)
+		let c8 = new Cameleon(contener, 25, 50, 25, 350, 0, { cameleon: c12, left: true }, true, true)
 		let c7 = new Cameleon(contener, 155, 50, 155, 350, 140, { cameleon: c12, left: false }, true)
-		let c6 = new Cameleon(contener, 285, 70, 285, 350, 140, { cameleon: c11, left: true }, true)
+		let c6 = new Cameleon(contener, 285, 70, 285, 350, 140, { cameleon: c11, left: true }, true, true)
 		let c5 = new Cameleon(contener, 415, 70, 415, 350, 0, { cameleon: c11, left: false }, true)
 		let c4 = new Cameleon(contener, 550, 40, 563, 345, 0, { cameleon: c10, left: true }, true)
 		let c3 = new Cameleon(contener, 680, 40, 693, 345, 140, { cameleon: c10, left: false }, true)
