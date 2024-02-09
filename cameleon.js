@@ -11,7 +11,12 @@ class Cameleon {
 		this.toY = toY
 		this.lparent = null
 		this.rparent = null
+		this.lparentHere = false
+		this.rparentHere = false
 		this.child = child
+		if (this.child) {
+			this.child.cameleon.setParent(this, this.child.left)
+		}
 		this.canMove = canMove
 		this.element = document.createElement('img')
 		this.element.src = 'camaleonRouge.png'
@@ -20,26 +25,56 @@ class Cameleon {
 		this.element.style.setProperty('--y', `${this.y}%`)
 		this.element.style.setProperty('--color', `${this.color}deg`)
 		this.negation = negation
+		this.contener = contener
 		if (negation) {
-			this.bird = document.createElement('img')
-			this.bird.src = 'bird.png'
-			this.bird.classList.add('bird')
-			let mid = middle(this.x, this.y, this.toX, this.toY)
-			this.bird.style.setProperty('--x', `${mid[0] + 40}%`)
-			this.bird.style.setProperty('--y', `${mid[1]}%`)
-			contener.appendChild(this.bird)
+			let bird = document.createElement('img')
+			bird.src = 'bird.png'
+			bird.classList.add('bird')
+			this.setBird(bird)
+			contener.appendChild(bird)
 		}
 
-		this.element.addEventListener("click", () => {
-			this.negate(() => {
-				this.move()
-			})
+		this.element.addEventListener("click", (event) => {
+			if (event.ctrlKey) {
+				this.morgan()
+			} else {
+				this.moveNegation(() => {
+					this.move()
+				})
+			}
 		})
 		contener.appendChild(this.element)
 	}
 
+	setBird(bird) {
+		this.bird = bird
+		if (bird) {
+			let mid = middle(this.x, this.y, this.toX, this.toY)
+			this.bird.style.setProperty('--x', `${mid[0] + 40}%`)
+			this.bird.style.setProperty('--y', `${mid[1]}%`)
+		}
+	}
+
+	morgan() {
+		console.log("morgan")
+		// rotate the birds between parent and this cameleon
+		if (this.rparent == null || this.lparent == null) {
+			return
+		}
+		console.log("rotation ")
+		let bird = this.bird
+		this.setBird(this.rparent.bird)
+		this.rparent.setBird(this.lparent.bird)
+		this.lparent.setBird(bird)
+
+		let negation = this.negation
+		this.negation = this.rparent.negation
+		this.rparent.negation = this.lparent.negation
+		this.lparent.negation = negation
+	}
+
 	cantBeMoved() {
-		return !this.canMove && (this.lparent == null || this.rparent == null)
+		return !this.canMove && (!this.lparentHere || !this.rparentHere)
 	}
 
 	invertColor() {
@@ -51,7 +86,7 @@ class Cameleon {
 		this.element.style.setProperty('--color', `${this.color}deg`)
 	}
 
-	negate(callback) {
+	moveNegation(callback) {
 		if (this.cantBeMoved()) {
 			return
 		}
@@ -81,7 +116,7 @@ class Cameleon {
 		this.element.style.setProperty('--y', `${this.y}%`)
 		if (this.child) {
 			setTimeout(() => {
-				this.child.cameleon.setParent(this, this.child.left)
+				this.child.cameleon.noticeHere(this.child.left)
 			}, 1500)
 		}
 	}
@@ -98,7 +133,15 @@ class Cameleon {
 		} else {
 			this.rparent = parent
 		}
-		if (this.rparent != null && this.lparent != null) {
+	}
+
+	noticeHere(left) {
+		if (left) {
+			this.lparentHere = true
+		} else {
+			this.rparentHere = true
+		}
+		if (this.lparentHere && this.rparentHere) {
 			this.calcNewColor(this.lparent.color, this.rparent.color)
 		}
 	}
