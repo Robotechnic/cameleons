@@ -26,13 +26,7 @@ class Cameleon {
 		this.element.style.setProperty('--color', `${this.color}deg`)
 		this.negation = negation
 		this.contener = contener
-		if (negation) {
-			let bird = document.createElement('img')
-			bird.src = 'bird.png'
-			bird.classList.add('bird')
-			this.setBird(bird)
-			contener.appendChild(bird)
-		}
+		this.setNegation(negation)
 
 		this.element.addEventListener("click", (event) => {
 			if (event.ctrlKey) {
@@ -46,31 +40,35 @@ class Cameleon {
 		contener.appendChild(this.element)
 	}
 
-	setBird(bird) {
-		this.bird = bird
-		if (bird) {
+	setNegation(negation) {
+		if (!this.bird && negation) {
+			let bird = document.createElement('img')
+			bird.src = 'bird.png'
+			bird.classList.add('bird')
+			this.bird = bird
 			let mid = middle(this.x, this.y, this.toX, this.toY)
-			this.bird.style.setProperty('--x', `${mid[0] + 40}%`)
+			this.bird.style.setProperty('--x', `${mid[0]}%`)
 			this.bird.style.setProperty('--y', `${mid[1]}%`)
+			contener.appendChild(bird)
+		} else if (this.bird && !negation) {
+			this.contener.removeChild(this.bird)
+			this.bird = null
 		}
+		this.negation = negation
 	}
 
 	morgan() {
-		console.log("morgan")
 		// rotate the birds between parent and this cameleon
 		if (this.rparent == null || this.lparent == null) {
 			return
 		}
-		console.log("rotation ")
-		let bird = this.bird
-		this.setBird(this.rparent.bird)
-		this.rparent.setBird(this.lparent.bird)
-		this.lparent.setBird(bird)
-
-		let negation = this.negation
-		this.negation = this.rparent.negation
-		this.rparent.negation = this.lparent.negation
-		this.lparent.negation = negation
+		if (this.lparentHere || this.rparentHere) {
+			return
+		}
+		this.setNegation(!this.negation)
+		this.lparent.setNegation(!this.lparent.negation)
+		this.rparent.setNegation(!this.rparent.negation)
+		this.invertColor()
 	}
 
 	cantBeMoved() {
