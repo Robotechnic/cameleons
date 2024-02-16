@@ -31,6 +31,8 @@ class Cameleon {
 		this.element.addEventListener("click", (event) => {
 			if (event.ctrlKey) {
 				this.morgan()
+			} else if (event.shiftKey) {
+				this.invertColor()
 			} else {
 				this.moveNegation(() => {
 					this.move()
