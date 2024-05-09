@@ -15,6 +15,6 @@ Il y a des combinaisons de touches possibles pour faire différentes actions:
 
 | Page | Description |
 |:----:|:-----------:|
-| [](https://robotechnic.github.io/cameleons/) | Arbre sans oiseaux pour la démonstration de base |
-| [](https://robotechnic.github.io/cameleons/negation ) | Arbre avec oiseaux pour la démonstration de la négation |
-| [](https://robotechnic.github.io/cameleons/solutionNegation) | Solution de l'arbre avec oiseaux pour la démonstration de la négation |
+| [https://robotechnic.github.io/cameleons/](https://robotechnic.github.io/cameleons/) | Arbre sans oiseaux pour la démonstration de base |
+| [https://robotechnic.github.io/cameleons/negation](https://robotechnic.github.io/cameleons/negation) | Arbre avec oiseaux pour la démonstration de la négation |
+| [ttps://robotechnic.github.io/cameleons/solutionNegation](https://robotechnic.github.io/cameleons/solutionNegation) | Solution de l'arbre avec oiseaux pour la démonstration de la négation |
